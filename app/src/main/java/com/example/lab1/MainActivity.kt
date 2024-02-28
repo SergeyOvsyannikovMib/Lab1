@@ -4,17 +4,16 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -107,6 +106,50 @@ class MainActivity : ComponentActivity() {
                         fontFamily = FontFamily(Font(R.font.sk_modernist)),
                         fontWeight = FontWeight(400),
                         color = Color(0xB2EEF2FB),
+                    )
+                )
+                Row(
+                    modifier = Modifier.padding(start = 24.dp, top = 15.dp)
+                        .horizontalScroll(rememberScrollState()),
+                ) {
+                    Box {
+                        Image(
+                            painter = painterResource(id = R.drawable.gameplay1),
+                            contentDescription = "Скриншот 1",
+                            modifier = Modifier.size(240.dp, 128.dp)
+                                .clip(RoundedCornerShape(14.dp)),
+                            contentScale = ContentScale.FillBounds
+                        )
+                        Box(
+                            modifier = Modifier
+                                .border(width = 0.7.dp, color = Color(0x00FFFFFF))
+                                .padding(0.7.dp)
+                                .offset(96.dp, 43.dp)
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.dota_gameplay_icon),
+                                contentDescription = "Кнопка воспроизведения видео",
+                                modifier = Modifier.size(48.dp)
+                            )
+                        }
+                    }
+                    Image(
+                        painter = painterResource(id = R.drawable.gameplay2),
+                        contentDescription = "Скриншот 2",
+                        modifier = Modifier.size(240.dp, 128.dp).padding(start = 15.dp)
+                            .clip(RoundedCornerShape(14.dp)),
+                        contentScale = ContentScale.FillBounds
+                    )
+                }
+                Text(
+                    modifier = Modifier.padding(start = 24.dp, top = 20.dp),
+                    text = "Review & Ratings",
+                    style = TextStyle(
+                        fontSize = 16.sp,
+                        fontFamily = FontFamily(Font(R.font.sk_modernist)),
+                        fontWeight = FontWeight(700),
+                        color = Color(0xFFEEF2FB),
+                        letterSpacing = 0.6.sp,
                     )
                 )
             }
