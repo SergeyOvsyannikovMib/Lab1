@@ -152,6 +152,40 @@ class MainActivity : ComponentActivity() {
                         letterSpacing = 0.6.sp,
                     )
                 )
+                Row(
+                    modifier = Modifier
+                        .padding(start = 24.dp, top =  12.dp)
+                ) {
+                    Text(
+                        text = "4.9",
+                        style = TextStyle(
+                            fontSize = 48.sp,
+                            fontFamily = FontFamily(Font(R.font.sk_modernist)),
+                            fontWeight = FontWeight(700),
+                            color = Color(0xFFFFFFFF),
+                        )
+                    )
+                    Column(
+                        modifier = Modifier.padding(start = 16.dp)
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.almost_all_stars),
+                            contentDescription = "Рейтинг (4.5 звезды)",
+                            modifier = Modifier.padding(top = 17.dp).size(76.dp, 12.dp)
+                        )
+                        Text(
+                            modifier = Modifier.padding(top = 8.dp, end = 7.dp),
+                            text = "70M Reviews",
+                            style = TextStyle(
+                                fontSize = 12.sp,
+                                fontFamily = FontFamily(Font(R.font.sk_modernist)),
+                                fontWeight = FontWeight(400),
+                                color = Color(0xFFA8ADB7),
+                                letterSpacing = 0.5.sp,
+                            )
+                        )
+                    }
+                }
             }
         }
     }
