@@ -2,11 +2,13 @@ package com.example.lab1
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -32,13 +34,13 @@ class MainActivity : ComponentActivity() {
                     .verticalScroll(rememberScrollState()),
             ) {
                 Box {
-                    Image(
+                    Image( // шапка
                         painter = painterResource(R.drawable.header_image),
                         contentDescription = "Шапка",
                         modifier = Modifier
                             .size(628.dp, 354.dp)
                     )
-                    Image(
+                    Image( // иконка
                         painter = painterResource(R.drawable.dota_icon),
                         contentDescription = "Иконка",
                         modifier = Modifier
@@ -50,7 +52,7 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier
                             .padding(start = 124.dp, top = 14.dp)
                     ) {
-                        Text(
+                        Text( // название
                             modifier = Modifier
                                 .padding(top = 345.dp),
                             text = "Dota 2",
@@ -67,7 +69,7 @@ class MainActivity : ComponentActivity() {
                             modifier = Modifier
                                 .padding(top = 7.dp),
                         ) {
-                            Image(
+                            Image( // рейтинг
                                 painter = painterResource(R.drawable.all_stars),
                                 contentDescription = "Рейтинг (пять звёзд)",
                                 modifier = Modifier
@@ -88,15 +90,17 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                 }
-                Box(
+                Box( // теги
                     modifier = Modifier
                         .offset(24.dp, (-20).dp)
                 ) {
                     Row {
-                        drawTags()
+                        drawTag("MOBA")
+                        drawTag("MULTIPLAYER")
+                        drawTag("STRATEGY")
                     }
                 }
-                Text(
+                Text( // описание
                     modifier = Modifier
                         .padding(24.dp, 5.dp, 24.dp, 0.dp),
                     text = getString(R.string.description),
@@ -108,7 +112,7 @@ class MainActivity : ComponentActivity() {
                         color = Color(0xB2EEF2FB),
                     )
                 )
-                Row(
+                Row( // скрины
                     modifier = Modifier.padding(start = 24.dp, top = 15.dp)
                         .horizontalScroll(rememberScrollState()),
                 ) {
@@ -141,7 +145,7 @@ class MainActivity : ComponentActivity() {
                         contentScale = ContentScale.FillBounds
                     )
                 }
-                Text(
+                Text( // заголовок отзывов
                     modifier = Modifier.padding(start = 24.dp, top = 20.dp),
                     text = "Review & Ratings",
                     style = TextStyle(
@@ -186,6 +190,56 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                 }
+                // отзывы
+                drawRating(
+                    R.drawable.auguste,
+                    "Auguste Conte",
+                    "February 14, 2019",
+                    getString(R.string.review)
+                )
+                Divider(
+                    color = Color(0xFF1A1F29),
+                    thickness = 1.dp,
+                    modifier = Modifier
+                        .padding(38.dp, 24.dp)
+                )
+                drawRating(
+                    R.drawable.jang,
+                    "Jang Marcelino",
+                    "February 14, 2019",
+                    getString(R.string.review)
+                )
+                // кнопка установить
+                Box(
+                    modifier = Modifier.padding(24.dp, 40.dp)
+                        .background(
+                            color = Color(0xFFF4D144),
+                            shape = RoundedCornerShape(size = 12.dp)
+                        ).clickable(
+                            onClick = {
+                                val message = Toast(baseContext)
+                                message.setText("Installed!")
+                                message.show()
+                            }
+                        )
+                ) {
+                    Column(
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier.size(402.dp, 60.dp)
+                    ) {
+                        Text(
+                            text = "Install",
+                            style = TextStyle(
+                                fontSize = 20.sp,
+                                fontFamily = FontFamily(Font(R.font.sk_modernist)),
+                                fontWeight = FontWeight(700),
+                                color = Color(0xFF050B18),
+                                letterSpacing = 0.6.sp,
+                            )
+                        )
+                    }
+                }
             }
         }
     }
@@ -193,21 +247,21 @@ class MainActivity : ComponentActivity() {
 
 @SuppressLint("ComposableNaming")
 @Composable
-fun drawTags() {
+fun drawTag(tagName: String) {
     Box(
-        modifier = Modifier.size(53.dp, 22.dp)
+        modifier = Modifier.padding(end = 5.dp)
             .background(
                 color = Color(0x3D44A9F4),
                 shape = RoundedCornerShape(size = 100.dp)
             )
-    ){
+    ) {
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding(10.dp, 5.dp)
         ) {
             Text(
-                text = "MOBA",
+                text = tagName,
                 style = TextStyle(
                     fontSize = 10.sp,
                     fontFamily = FontFamily(Font(R.font.montserrat)),
@@ -217,50 +271,62 @@ fun drawTags() {
             )
         }
     }
-    Box(
-        modifier = Modifier.size(93.dp, 22.dp).offset(10.dp)
-            .background(
-                color = Color(0x3D44A9F4),
-                shape = RoundedCornerShape(size = 100.dp)
-            )
-    ){
+}
+
+@SuppressLint("ComposableNaming")
+@Composable
+fun drawRating(userpic: Int, username: String, reviewdate: String, review: String) {
+    Row(
+        modifier = Modifier
+            .padding(start = 24.dp)
+            .background(color = Color(0xFF050B18))
+    ) {
+        Image(
+            painter = painterResource(id = userpic),
+            contentDescription = "Аватар пользователя",
+            modifier = Modifier
+                .size(38.dp)
+                .padding(top = 2.dp),
+        )
         Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(10.dp, 5.dp)
+            modifier = Modifier
+                .padding(start = 15.dp),
+            verticalArrangement = Arrangement.SpaceBetween,
         ) {
             Text(
-                text = "MULTIPLAYER",
+                modifier = Modifier.padding(bottom = 7.dp),
+                text = username,
                 style = TextStyle(
-                    fontSize = 10.sp,
-                    fontFamily = FontFamily(Font(R.font.montserrat)),
-                    fontWeight = FontWeight(500),
-                    color = Color(0xFF44A9F4),
+                    fontSize = 16.sp,
+                    fontFamily = FontFamily(Font(R.font.sk_modernist)),
+                    fontWeight = FontWeight(400),
+                    color = Color(0xFFFFFFFF),
+                    letterSpacing = 0.5.sp,
+                )
+            )
+            Text(
+                text = reviewdate,
+                style = TextStyle(
+                    fontSize = 12.sp,
+                    fontFamily = FontFamily(Font(R.font.sk_modernist)),
+                    fontWeight = FontWeight(400),
+                    color = Color(0x66FFFFFF),
+                    letterSpacing = 0.5.sp,
                 )
             )
         }
     }
-    Box(
-        modifier = Modifier.size(73.dp, 22.dp).offset(20.dp)
-            .background(
-                color = Color(0x3D44A9F4),
-                shape = RoundedCornerShape(size = 100.dp)
-            )
-    ){
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(10.dp, 5.dp)
-        ) {
-            Text(
-                text = "STRATEGY",
-                style = TextStyle(
-                    fontSize = 10.sp,
-                    fontFamily = FontFamily(Font(R.font.montserrat)),
-                    fontWeight = FontWeight(500),
-                    color = Color(0xFF44A9F4),
-                )
-            )
-        }
-    }
+    Text(
+        modifier = Modifier
+            .padding(24.dp, 16.dp, 24.dp, 0.dp)
+            .background(color = Color(0xFF050B18)) ,
+        text = review,
+        style = TextStyle(
+            fontSize = 12.sp,
+            lineHeight = 20.sp,
+            fontFamily = FontFamily(Font(R.font.sk_modernist)),
+            fontWeight = FontWeight(400),
+            color = Color(0xFFA8ADB7),
+            letterSpacing = 0.5.sp,),
+    )
 }
